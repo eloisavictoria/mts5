@@ -1,13 +1,14 @@
 const request = require('supertest');
+const postLogin = require('../fixtures/postLogin.json');
+
 const obterToken = async (usuario, senha) =>{
+
+    const bodyLogin = {...postLogin};
     //Capturar o token de autenticação
     const respostaLogin = await request(process.env.BASE_URL)
     .post('/login')
     .set('Content-Type', 'application/json') //setando cabeçalho da requisição
-    .send({
-        'username': usuario,
-        'senha': senha
-    })
+    .send(bodyLogin)
     const token = respostaLogin.body.token;
     return token;
 }
